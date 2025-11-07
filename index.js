@@ -135,7 +135,7 @@ const outputOneEl = document.getElementById("outputOneEl");
 const outputTwoEl = document.getElementById("outputTwoEl");
 
 // Create two random passwords
-function generatePassword() {
+generateButton.addEventListener("click", function () {
   let passwordOne = "";
   let passwordTwo = "";
 
@@ -146,9 +146,7 @@ function generatePassword() {
 
   outputOneEl.textContent = passwordOne;
   outputTwoEl.textContent = passwordTwo;
-}
-
-generateButton.addEventListener("click", generatePassword);
+});
 
 // --------------------------------------------------- //
 
