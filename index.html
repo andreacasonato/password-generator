@@ -22,15 +22,35 @@
       <p>Never use an insecure password again.</p>
 
       <div class="generator__pass-length">
-        <label for="password-length">Password length (8-18)</label>
+        <label for="password-length">Password length (12-18)</label>
         <input
           type="number"
           id="password-length"
           name="length"
-          min="8"
+          min="12"
           max="18"
           value="15"
         />
+      </div>
+
+      <!-- TOGGLE SYMBOLS -->
+      <div class="toggle-container toggle-container-symbols">
+        <p class="toggle__p">Include symbols (recommended)</p>
+        <div class="generator__toggle on" id="toggleButtonSymbols">
+          <div class="toggle-text-left">YES</div>
+          <div class="toggle-text-right">NO</div>
+          <div class="toggle-circle"></div>
+        </div>
+      </div>
+
+      <!-- TOGGLE NUMBERS -->
+      <div class="toggle-container toggle-container-numbers">
+        <p class="toggle__p">Include numbers (recommended)</p>
+        <div class="generator__toggle on" id="toggleButtonNums">
+          <div class="toggle-text-left">YES</div>
+          <div class="toggle-text-right">NO</div>
+          <div class="toggle-circle"></div>
+        </div>
       </div>
 
       <button id="generateButton">Generate passwords</button>

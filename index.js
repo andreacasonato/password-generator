@@ -126,11 +126,11 @@ const symbols = [
 
 /* GOALS:
 - Generate two random passwords when the user clicks the button
-- Each password should be 15
+- Each password must be at least 12
 characters long
 */
 
-let passwordLengthEl = document.getElementById("password-length");
+const passwordLengthEl = document.getElementById("password-length");
 const generateButton = document.getElementById("generateButton");
 const outputOneEl = document.getElementById("outputOneEl");
 const outputTwoEl = document.getElementById("outputTwoEl");
@@ -139,8 +139,8 @@ const outputTwoEl = document.getElementById("outputTwoEl");
 generateButton.addEventListener("click", function () {
   let desiredLength = Number(passwordLengthEl.value);
 
-  if (desiredLength < 8 || desiredLength > 18) {
-    alert("Please select a password length between 8 and 18");
+  if (desiredLength < 12 || desiredLength > 18) {
+    alert("Please select a password length between 12 and 18");
     return;
   }
 
@@ -158,7 +158,19 @@ generateButton.addEventListener("click", function () {
 
 // --------------------------------------------------- //
 
+const toggleSymbols = document.getElementById("toggleButtonSymbols");
+
+toggleSymbols.addEventListener("click", function () {
+  toggleSymbols.classList.toggle("on");
+});
+
+const toggleNums = document.getElementById("toggleButtonNums");
+
+toggleNums.addEventListener("click", function () {
+  toggleNums.classList.toggle("on");
+});
+
 /* Next features:
-- Add "copy-on-click"
 - Toggle "symbols" and "numbers" on/off 
+- Add "copy-on-click"
 */
