@@ -130,16 +130,24 @@ const symbols = [
 characters long
 */
 
+let passwordLengthEl = document.getElementById("password-length");
 const generateButton = document.getElementById("generateButton");
 const outputOneEl = document.getElementById("outputOneEl");
 const outputTwoEl = document.getElementById("outputTwoEl");
 
 // Create two random passwords
 generateButton.addEventListener("click", function () {
+  let desiredLength = Number(passwordLengthEl.value);
+
+  if (desiredLength < 8 || desiredLength > 18) {
+    alert("Please select a password length between 8 and 18");
+    return;
+  }
+
   let passwordOne = "";
   let passwordTwo = "";
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < desiredLength; i++) {
     passwordOne += characters[Math.floor(Math.random() * characters.length)];
     passwordTwo += characters[Math.floor(Math.random() * characters.length)];
   }
@@ -150,8 +158,7 @@ generateButton.addEventListener("click", function () {
 
 // --------------------------------------------------- //
 
-/* STRETCH GOALS (to do at the end)
-- Ability to set password length
+/* Next features:
 - Add "copy-on-click"
-- Toggle "symbols" and "numbers" on/off
- */
+- Toggle "symbols" and "numbers" on/off 
+*/
