@@ -87,10 +87,11 @@ const symbols = [
   "/",
 ];
 
-/* GOALS:
-- Generate two random passwords when the user clicks the button
+/* Features:
+- The ability to generate two random passwords when the user clicks the button
 - Each password must be at least 12
 characters long
+- The user may decide whether to include numbers and/or special characters
 */
 
 const passwordLengthEl = document.getElementById("password-length");
@@ -148,7 +149,11 @@ toggleNums.addEventListener("click", function () {
   toggleNums.classList.toggle("on");
 });
 
-/* Next features:
-- Toggle "symbols" and "numbers" on/off 
-- Add "copy-on-click"
-*/
+// 'Copy on click feature'
+outputOneEl.addEventListener("click", function () {
+  navigator.clipboard.writeText(outputOneEl.textContent);
+});
+
+outputTwoEl.addEventListener("click", function () {
+  navigator.clipboard.writeText(outputTwoEl.textContent);
+});

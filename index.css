@@ -198,6 +198,8 @@ hr {
 
   border-radius: 6px;
   padding-bottom: 2.8rem;
+
+  cursor: pointer;
 }
 
 #outputOneEl {
