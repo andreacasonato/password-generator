@@ -44,7 +44,7 @@ label {
   font-family: "Inter", sans-serif;
   color: #ebebeb;
   font-size: 0.9rem;
-  margin-right: 0.2rem;
+  margin-right: 0.75rem;
 }
 
 input {
@@ -221,5 +221,9 @@ hr {
 @media screen and (max-width: 750px) {
   .generator__output {
     flex-direction: column;
+  }
+  .toggle-container {
+    display: flex;
+    gap: 0.4rem;
   }
 }

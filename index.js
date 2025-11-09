@@ -1,4 +1,4 @@
-const characters = [
+const letters = [
   "A",
   "B",
   "C",
@@ -51,47 +51,10 @@ const characters = [
   "x",
   "y",
   "z",
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "~",
-  "`",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "*",
-  "(",
-  ")",
-  "_",
-  "-",
-  "+",
-  "=",
-  "{",
-  "[",
-  "}",
-  "]",
-  ",",
-  "|",
-  ":",
-  ";",
-  "<",
-  ">",
-  ".",
-  "?",
-  "/",
 ];
+
 const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
 const symbols = [
   "~",
   "`",
@@ -144,12 +107,27 @@ generateButton.addEventListener("click", function () {
     return;
   }
 
+  let allowedChars = [...letters];
+
+  // Check toggle states
+  const includeSymbols = toggleSymbols.classList.contains("on");
+  const includeNumbers = toggleNums.classList.contains("on");
+
+  if (includeSymbols) {
+    allowedChars = allowedChars.concat(symbols);
+  }
+  if (includeNumbers) {
+    allowedChars = allowedChars.concat(numbers);
+  }
+
   let passwordOne = "";
   let passwordTwo = "";
 
   for (let i = 0; i < desiredLength; i++) {
-    passwordOne += characters[Math.floor(Math.random() * characters.length)];
-    passwordTwo += characters[Math.floor(Math.random() * characters.length)];
+    passwordOne +=
+      allowedChars[Math.floor(Math.random() * allowedChars.length)];
+    passwordTwo +=
+      allowedChars[Math.floor(Math.random() * allowedChars.length)];
   }
 
   outputOneEl.textContent = passwordOne;
