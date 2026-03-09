@@ -185,15 +185,13 @@ hr {
 /* ---------------------------------------- */
 
 .generator__output {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
 
-.generator__output-one,
-.generator__output-two {
+.generator__output-item {
   background-color: #273549;
-  width: 18rem;
   height: 3rem;
   border-radius: 6px;
   position: relative;
@@ -202,8 +200,7 @@ hr {
   padding: 0 0.75rem;
 }
 
-#outputOneEl,
-#outputTwoEl {
+.password-text {
   color: #10b981;
   font-family: "Inter", sans-serif;
   font-size: 1rem;
@@ -278,7 +275,7 @@ hr {
 
 @media screen and (max-width: 750px) {
   .generator__output {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
   .toggle-container {
     display: flex;

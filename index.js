@@ -95,27 +95,76 @@ const symbols = [
 // ========= DOM Element References =========
 
 const passwordLengthEl = document.getElementById("password-length");
+const passwordCountEl = document.getElementById("password-count");
 const generateButton = document.getElementById("generateButton");
-const outputOneEl = document.getElementById("outputOneEl");
-const outputTwoEl = document.getElementById("outputTwoEl");
+const outputsContainer = document.getElementById("outputsContainer");
 const toggleSymbols = document.getElementById("toggleButtonSymbols");
 const toggleNums = document.getElementById("toggleButtonNums");
-const feedbackOne = document.getElementById("feedbackOne");
-const feedbackTwo = document.getElementById("feedbackTwo");
-const copyBtnOne = document.getElementById("copyBtnOne");
-const copyBtnTwo = document.getElementById("copyBtnTwo");
 
-setCopyButtonsVisible(false);
+// ========= Helpers =========
+
+function generatePassword(desiredLength, allowedChars) {
+  let password = "";
+  for (let i = 0; i < desiredLength; i++) {
+    password += allowedChars[Math.floor(Math.random() * allowedChars.length)];
+  }
+  return password;
+}
+
+function createCopyIconSvg() {
+  return `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+  `;
+}
+
+function createPasswordRow(passwordText) {
+  const row = document.createElement("div");
+  row.className = "generator__output-item";
+
+  const passwordEl = document.createElement("p");
+  passwordEl.className = "password-text";
+  passwordEl.textContent = passwordText;
+
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "copy-btn";
+  copyBtn.type = "button";
+  copyBtn.innerHTML = createCopyIconSvg();
+
+  const feedbackEl = document.createElement("div");
+  feedbackEl.className = "copy-feedback";
+  feedbackEl.textContent = "COPIED!";
+
+  copyBtn.addEventListener("click", function () {
+    if (!passwordEl.textContent) return;
+    navigator.clipboard.writeText(passwordEl.textContent);
+    showCopyFeedback(feedbackEl, copyBtn);
+  });
+
+  row.appendChild(passwordEl);
+  row.appendChild(copyBtn);
+  row.appendChild(feedbackEl);
+
+  return { row, copyBtn };
+}
 
 // ========= Generate Passwords on Click =========
 
 generateButton.addEventListener("click", function () {
   // Convert input value to a number
   let desiredLength = Number(passwordLengthEl.value);
+  let desiredCount = Number(passwordCountEl.value);
 
   // Ensure password length is between 12 and 18 characters
   if (desiredLength < 12 || desiredLength > 18) {
     alert("Please select a password length between 12 and 18");
+    return;
+  }
+
+  if (desiredCount < 1 || desiredCount > 10) {
+    alert("Please select a number of passwords between 1 and 10");
     return;
   }
 
@@ -129,23 +178,14 @@ generateButton.addEventListener("click", function () {
   if (includeSymbols) allowedChars = allowedChars.concat(symbols);
   if (includeNumbers) allowedChars = allowedChars.concat(numbers);
 
-  // Initialize two empty passwords
-  let passwordOne = "";
-  let passwordTwo = "";
+  outputsContainer.innerHTML = "";
 
-  // Randomly generate characters for each password
-  for (let i = 0; i < desiredLength; i++) {
-    passwordOne +=
-      allowedChars[Math.floor(Math.random() * allowedChars.length)];
-    passwordTwo +=
-      allowedChars[Math.floor(Math.random() * allowedChars.length)];
+  for (let i = 0; i < desiredCount; i++) {
+    const password = generatePassword(desiredLength, allowedChars);
+    const { row, copyBtn } = createPasswordRow(password);
+    outputsContainer.appendChild(row);
+    copyBtn.classList.add("visible");
   }
-
-  // Display generated passwords
-  outputOneEl.textContent = passwordOne;
-  outputTwoEl.textContent = passwordTwo;
-
-  setCopyButtonsVisible(true);
 });
 
 // ========= Toggle Buttons for Options =========
@@ -160,46 +200,19 @@ toggleNums.addEventListener("click", function () {
   toggleNums.classList.toggle("on");
 });
 
-// ========= Copy Passwords on Click =========
-
-copyBtnOne.addEventListener("click", function () {
-  if (!outputOneEl.textContent) return;
-  navigator.clipboard.writeText(outputOneEl.textContent);
-  showCopyFeedback(feedbackOne, copyBtnOne);
-});
-
-copyBtnTwo.addEventListener("click", function () {
-  if (!outputTwoEl.textContent) return;
-  navigator.clipboard.writeText(outputTwoEl.textContent);
-  showCopyFeedback(feedbackTwo, copyBtnTwo);
-});
-
 // ========= Show Copy Feedback =========
 
 function showCopyFeedback(feedbackElement, copyButton) {
   // Hide the copy button and show feedback
-  copyButton.style.opacity = "0";
-  copyButton.style.visibility = "hidden";
-  
+  copyButton.classList.remove("visible");
+
   feedbackElement.classList.add("show");
-  
+
   setTimeout(() => {
     feedbackElement.classList.remove("show");
     // Show the copy button again after feedback disappears
     setTimeout(() => {
-      copyButton.style.opacity = "1";
-      copyButton.style.visibility = "visible";
+      copyButton.classList.add("visible");
     }, 300);
   }, 1500);
-}
-
-function setCopyButtonsVisible(isVisible) {
-  if (isVisible) {
-    copyBtnOne.classList.add("visible");
-    copyBtnTwo.classList.add("visible");
-    return;
-  }
-
-  copyBtnOne.classList.remove("visible");
-  copyBtnTwo.classList.remove("visible");
 }
