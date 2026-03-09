@@ -100,6 +100,10 @@ const outputOneEl = document.getElementById("outputOneEl");
 const outputTwoEl = document.getElementById("outputTwoEl");
 const toggleSymbols = document.getElementById("toggleButtonSymbols");
 const toggleNums = document.getElementById("toggleButtonNums");
+const feedbackOne = document.getElementById("feedbackOne");
+const feedbackTwo = document.getElementById("feedbackTwo");
+const copyBtnOne = document.getElementById("copyBtnOne");
+const copyBtnTwo = document.getElementById("copyBtnTwo");
 
 // ========= Generate Passwords on Click =========
 
@@ -154,10 +158,31 @@ toggleNums.addEventListener("click", function () {
 
 // ========= Copy Passwords on Click =========
 
-outputOneEl.addEventListener("click", function () {
+copyBtnOne.addEventListener("click", function () {
   navigator.clipboard.writeText(outputOneEl.textContent);
+  showCopyFeedback(feedbackOne, copyBtnOne);
 });
 
-outputTwoEl.addEventListener("click", function () {
+copyBtnTwo.addEventListener("click", function () {
   navigator.clipboard.writeText(outputTwoEl.textContent);
+  showCopyFeedback(feedbackTwo, copyBtnTwo);
 });
+
+// ========= Show Copy Feedback =========
+
+function showCopyFeedback(feedbackElement, copyButton) {
+  // Hide the copy button and show feedback
+  copyButton.style.opacity = "0";
+  copyButton.style.visibility = "hidden";
+  
+  feedbackElement.classList.add("show");
+  
+  setTimeout(() => {
+    feedbackElement.classList.remove("show");
+    // Show the copy button again after feedback disappears
+    setTimeout(() => {
+      copyButton.style.opacity = "1";
+      copyButton.style.visibility = "visible";
+    }, 300);
+  }, 1500);
+}
