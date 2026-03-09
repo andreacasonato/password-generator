@@ -131,6 +131,7 @@ function createPasswordRow(passwordText) {
   const copyBtn = document.createElement("button");
   copyBtn.className = "copy-btn";
   copyBtn.type = "button";
+  copyBtn.setAttribute("aria-label", "Copy password");
   copyBtn.innerHTML = createCopyIconSvg();
 
   const feedbackEl = document.createElement("div");
