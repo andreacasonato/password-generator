@@ -49,9 +49,9 @@ label {
 
 input {
   text-align: center;
-  padding: 0.3rem;
-  font-size: 0.9rem;
-  width: 2.5rem;
+  padding: 0.45rem;
+  font-size: 1rem;
+  width: 3.25rem;
 }
 
 /* Remove arrows from number input */
@@ -193,8 +193,8 @@ hr {
 .generator__output-one,
 .generator__output-two {
   background-color: #273549;
-  width: 16rem;
-  height: 2.4375rem;
+  width: 18rem;
+  height: 3rem;
   border-radius: 6px;
   position: relative;
   display: flex;
@@ -206,7 +206,7 @@ hr {
 #outputTwoEl {
   color: #10b981;
   font-family: "Inter", sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   flex: 1;
   margin: 0;
   white-space: nowrap;
@@ -228,6 +228,13 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.copy-btn.visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .copy-btn:hover {

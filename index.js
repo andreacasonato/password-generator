@@ -105,6 +105,8 @@ const feedbackTwo = document.getElementById("feedbackTwo");
 const copyBtnOne = document.getElementById("copyBtnOne");
 const copyBtnTwo = document.getElementById("copyBtnTwo");
 
+setCopyButtonsVisible(false);
+
 // ========= Generate Passwords on Click =========
 
 generateButton.addEventListener("click", function () {
@@ -142,6 +144,8 @@ generateButton.addEventListener("click", function () {
   // Display generated passwords
   outputOneEl.textContent = passwordOne;
   outputTwoEl.textContent = passwordTwo;
+
+  setCopyButtonsVisible(true);
 });
 
 // ========= Toggle Buttons for Options =========
@@ -159,11 +163,13 @@ toggleNums.addEventListener("click", function () {
 // ========= Copy Passwords on Click =========
 
 copyBtnOne.addEventListener("click", function () {
+  if (!outputOneEl.textContent) return;
   navigator.clipboard.writeText(outputOneEl.textContent);
   showCopyFeedback(feedbackOne, copyBtnOne);
 });
 
 copyBtnTwo.addEventListener("click", function () {
+  if (!outputTwoEl.textContent) return;
   navigator.clipboard.writeText(outputTwoEl.textContent);
   showCopyFeedback(feedbackTwo, copyBtnTwo);
 });
@@ -185,4 +191,15 @@ function showCopyFeedback(feedbackElement, copyButton) {
       copyButton.style.visibility = "visible";
     }, 300);
   }, 1500);
+}
+
+function setCopyButtonsVisible(isVisible) {
+  if (isVisible) {
+    copyBtnOne.classList.add("visible");
+    copyBtnTwo.classList.add("visible");
+    return;
+  }
+
+  copyBtnOne.classList.remove("visible");
+  copyBtnTwo.classList.remove("visible");
 }
