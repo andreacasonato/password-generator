@@ -158,9 +158,9 @@ generateButton.addEventListener("click", function () {
   let desiredLength = Number(passwordLengthEl.value);
   let desiredCount = Number(passwordCountEl.value);
 
-  // Ensure password length is between 12 and 18 characters
-  if (desiredLength < 12 || desiredLength > 18) {
-    alert("Please select a password length between 12 and 18");
+  // Ensure password length is between 12 and 22 characters
+  if (desiredLength < 12 || desiredLength > 22) {
+    alert("Please select a password length between 12 and 22");
     return;
   }
 
@@ -187,6 +187,33 @@ generateButton.addEventListener("click", function () {
     outputsContainer.appendChild(row);
     copyBtn.classList.add("visible");
   }
+});
+
+// ========= Stepper Buttons =========
+
+function updateStepperButtons(input) {
+  const dec = input.parentElement.querySelector('[data-action="dec"]');
+  const inc = input.parentElement.querySelector('[data-action="inc"]');
+  if (dec) dec.disabled = Number(input.value) <= Number(input.min);
+  if (inc) inc.disabled = Number(input.value) >= Number(input.max);
+}
+
+document.querySelectorAll(".stepper__btn").forEach((btn) => {
+  const input = document.getElementById(btn.dataset.target);
+  updateStepperButtons(input);
+  input.addEventListener("input", () => updateStepperButtons(input));
+
+  btn.addEventListener("click", function () {
+    const current = Number(input.value);
+    const min = Number(input.min);
+    const max = Number(input.max);
+    if (btn.dataset.action === "dec" && current > min) {
+      input.value = current - 1;
+    } else if (btn.dataset.action === "inc" && current < max) {
+      input.value = current + 1;
+    }
+    updateStepperButtons(input);
+  });
 });
 
 // ========= Toggle Buttons for Options =========
